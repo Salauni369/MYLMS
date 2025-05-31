@@ -1,0 +1,80 @@
+{% extends 'courses/base.html' %} {% block title %}Login{% endblock %} {% block content %}
+<div class="min-h-[calc(100vh-130px)] h-full flex items-center justify-center">
+  <div class="bg-image w-full h-full"></div>
+  <div class="box max-w-md mx-auto bg-white rounded-lg shadow-lg p-8">
+    <h2 class="text-2xl font-bold text-center text-blue-700 mb-6">🔐 Login to Your Account</h2>
+
+    {% if form.non_field_errors %}
+    <div class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+      {% for error in form.non_field_errors %}
+      <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" class="space-y-5">
+      {% csrf_token %} {% for field in form %}
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"> {{ field.label_tag }} </label>
+        {{ field }} {% if field.errors %}
+        <p class="text-red-500 text-sm mt-1">{{ field.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 font-semibold"
+      >
+        Login
+      </button>
+    </form>
+
+    <p class="text-center text-sm text-gray-600 mt-4">
+      Don't have an account?
+      <a href="{% url 'register' %}" class="text-blue-600 hover:underline">Register</a>
+    </p>
+  </div>
+</div>
+
+<!-- Style input fields manually -->
+<style>
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db; /* Tailwind's gray-300 */
+    border-radius: 0.375rem; /* Tailwind's rounded-md */
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #3b82f6; /* Tailwind's blue-500 */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+
+  .bg-image {
+    background-image: url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: calc(100vh - 130px);
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    /* position: relative; */
+  }
+
+  .box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+</style>
+{% endblock %}
