@@ -7,6 +7,9 @@ from django.shortcuts import redirect
 from .forms import QuizForm
 from django.db.models import Q
 
+def about(request):
+    return render(request, 'about.html')
+
 def register_view(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -38,6 +41,9 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+def about(request):
+    return render(request, "about.html")
 
 @login_required
 def dashboard(request):
@@ -121,3 +127,9 @@ def attempt_quiz(request, course_id):
 
 def custom_404(request, exception=None):
     return render(request, '404.html', status=404)
+
+# def about(request):
+#     return render(request.'about.html',{
+#         'title': 'About us',
+#         'content': "education"
+#     })
